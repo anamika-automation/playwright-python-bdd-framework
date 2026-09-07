@@ -1,0 +1,5 @@
+pytest
+playwright
+pytest-bdd
+python-dotenv
+pytest-html
