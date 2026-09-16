@@ -42,12 +42,32 @@ class ProductsPage:
             '[data-test="remove-sauce-labs-bike-light"]'
         )
 
+        self.bolt_tshirt_remove_button = page.locator(
+            '[data-test="remove-sauce-labs-bolt-t-shirt"]'
+        )
+
+        self.fleece_jacket_remove_button = page.locator(
+            '[data-test="remove-sauce-labs-fleece-jacket"]'
+        )
+
+        self.onesie_remove_button = page.locator(
+            '[data-test="remove-sauce-labs-onesie"]'
+        )
+
+        self.red_tshirt_remove_button = page.locator(
+            '[data-test="remove-test.allthethings()-t-shirt-(red)"]'
+        )
+
         self.sort_dropdown = page.locator(
             '[data-test="product-sort-container"]'
         )
 
         self.cart_link = page.locator(
             '[data-test="shopping-cart-link"]'
+        )
+
+        self.cart_badge = page.locator(
+            '[data-test="shopping-cart-badge"]'
         )
 
         self.menu_button = page.locator("#react-burger-menu-btn")
@@ -93,26 +113,58 @@ class ProductsPage:
     def add_backpack(self):
         self.backpack_add_button.click()
 
+        expect(
+            self.backpack_remove_button
+        ).to_be_visible(timeout=10000)
+
     def add_bike_light(self):
         self.bike_light_add_button.click()
+
+        expect(
+            self.bike_light_remove_button
+        ).to_be_visible(timeout=10000)
 
     def add_bolt_tshirt(self):
         self.bolt_tshirt_add_button.click()
 
+        expect(
+            self.bolt_tshirt_remove_button
+        ).to_be_visible(timeout=10000)
+
     def add_fleece_jacket(self):
         self.fleece_jacket_add_button.click()
+
+        expect(
+            self.fleece_jacket_remove_button
+        ).to_be_visible(timeout=10000)
 
     def add_onesie(self):
         self.onesie_add_button.click()
 
+        expect(
+            self.onesie_remove_button
+        ).to_be_visible(timeout=10000)
+
     def add_red_tshirt(self):
         self.red_tshirt_add_button.click()
+
+        expect(
+            self.red_tshirt_remove_button
+        ).to_be_visible(timeout=10000)
 
     def remove_backpack(self):
         self.backpack_remove_button.click()
 
+        expect(
+            self.backpack_add_button
+        ).to_be_visible(timeout=10000)
+
     def remove_bike_light(self):
         self.bike_light_remove_button.click()
+
+        expect(
+            self.bike_light_add_button
+        ).to_be_visible(timeout=10000)
 
     def sort_z_to_a(self):
         self.sort_dropdown.select_option("za")
@@ -128,6 +180,10 @@ class ProductsPage:
 
     def open_cart(self):
         self.cart_link.click()
+
+        expect(self.page).to_have_url(
+            f"{os.getenv('BASE_URL')}cart.html"
+        )
 
     # -------------------------------------------------
     # SauceDemo Logout
@@ -147,6 +203,7 @@ class ProductsPage:
         self.about_link.click()
 
     def open_mobile_app_distribution(self):
+
         self.page.wait_for_load_state("domcontentloaded")
 
         # Move mouse over Products menu
@@ -174,32 +231,54 @@ class ProductsPage:
 
     def fill_demo_form(self):
 
-        self.business_email.fill("testgdjufgkurgurguirgiufgd444iudgiugd@company.com")
+        self.business_email.fill(
+            "testgdjufgkurgurguirgiufgd444iudgiugd@company.com"
+        )
 
-        self.company.fill("test company learning")
+        self.company.fill(
+            "test company learning"
+        )
 
-        self.use_case.select_option("Visual Testing")
+        self.use_case.select_option(
+            "Visual Testing"
+        )
 
         self.comments.fill(
             "this is just for learning. i am testing automation project."
         )
 
-        self.phone.fill("34543453")
+        self.phone.fill(
+            "34543453"
+        )
 
-        self.country.select_option("United States")
+        self.country.select_option(
+            "United States"
+        )
 
     def submit_demo_request(self):
 
         self.request_demo_button.click()
 
     def return_to_saucedemo(self):
+
         base_url = os.getenv("BASE_URL")
+
         self.page.goto(base_url)
 
         # Login again after returning to SauceDemo
-        self.page.locator('[data-test="username"]').fill("standard_user")
-        self.page.locator('[data-test="password"]').fill("secret_sauce")
-        self.page.locator('[data-test="login-button"]').click()
+        self.page.locator(
+            '[data-test="username"]'
+        ).fill("standard_user")
+
+        self.page.locator(
+            '[data-test="password"]'
+        ).fill("secret_sauce")
+
+        self.page.locator(
+            '[data-test="login-button"]'
+        ).click()
 
         # Verify Products page is displayed
-        expect(self.products_title).to_be_visible(timeout=10000)
+        expect(
+            self.products_title
+        ).to_be_visible(timeout=10000)
