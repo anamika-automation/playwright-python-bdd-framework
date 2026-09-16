@@ -181,8 +181,19 @@ class ProductsPage:
     def open_cart(self):
         self.cart_link.click()
 
+        # Wait until the actual Cart page is rendered
+        expect(
+            self.page.locator('[data-test="title"]')
+        ).to_have_text("Your Cart", timeout=15000)
+
+        expect(
+            self.page.locator(".cart_list")
+        ).to_be_visible(timeout=15000)
+
+        # Verify the correct URL after the Cart page is rendered
         expect(self.page).to_have_url(
-            f"{os.getenv('BASE_URL')}cart.html"
+            f"{os.getenv('BASE_URL')}cart.html",
+            timeout=10000
         )
 
     # -------------------------------------------------
