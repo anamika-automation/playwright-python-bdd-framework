@@ -3,3 +3,4 @@ playwright
 pytest-bdd
 python-dotenv
 pytest-html
+requests==2.34.2
