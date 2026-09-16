@@ -39,7 +39,7 @@ jobs:
 
       - name: Run UI and API tests
         env:
-          BASE_URL: https://www.saucedemo.com/
+          BASE_URL: ${{ secrets.BASE_URL }}
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
         run: |
