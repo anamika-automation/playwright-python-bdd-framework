@@ -149,6 +149,20 @@ def add_products_to_cart(page):
     products_page.add_red_tshirt()
     logger.info("Added Red T-Shirt")
 
+    # Verify that all 6 products were actually added
+    cart_badge = page.locator(
+        '[data-test="shopping-cart-badge"]'
+    )
+
+    expect(
+        cart_badge
+    ).to_have_text("6", timeout=10000)
+
+    logger.info(
+        "Cart badge after adding products: %s",
+        cart_badge.inner_text()
+    )
+
     logger.info("STEP PASSED: Products added")
 
 
@@ -164,6 +178,20 @@ def remove_selected_products(page):
 
     products_page.remove_bike_light()
     logger.info("Removed Bike Light")
+
+    # Verify that 4 products remain
+    cart_badge = page.locator(
+        '[data-test="shopping-cart-badge"]'
+    )
+
+    expect(
+        cart_badge
+    ).to_have_text("4", timeout=10000)
+
+    logger.info(
+        "Cart badge after removing products: %s",
+        cart_badge.inner_text()
+    )
 
     logger.info("STEP PASSED: Selected products removed")
 
@@ -187,6 +215,20 @@ def sort_products(page):
     products_page.sort_price_high_to_low()
     logger.info("Sorted: Price High to Low")
 
+    # Verify cart still contains 4 products after sorting
+    cart_badge = page.locator(
+        '[data-test="shopping-cart-badge"]'
+    )
+
+    expect(
+        cart_badge
+    ).to_have_text("4", timeout=10000)
+
+    logger.info(
+        "Cart badge after sorting: %s",
+        cart_badge.inner_text()
+    )
+
     logger.info("STEP PASSED: Product sorting completed")
 
 
@@ -194,6 +236,20 @@ def sort_products(page):
 def open_cart(page):
 
     logger.info("STEP: Open cart")
+
+    # Verify cart badge before opening cart
+    cart_badge = page.locator(
+        '[data-test="shopping-cart-badge"]'
+    )
+
+    expect(
+        cart_badge
+    ).to_have_text("4", timeout=10000)
+
+    logger.info(
+        "Cart badge before opening cart: %s",
+        cart_badge.inner_text()
+    )
 
     products_page = ProductsPage(page)
 
@@ -203,7 +259,10 @@ def open_cart(page):
 
     item_count = cart_page.get_cart_item_count()
 
-    logger.info("Cart contains %s products", item_count)
+    logger.info(
+        "Cart contains %s products",
+        item_count
+    )
 
     expect(page).to_have_url(
         f"{os.getenv('BASE_URL')}cart.html"
